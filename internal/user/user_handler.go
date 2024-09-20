@@ -31,3 +31,19 @@ func (h *Handler) CreateUser(c *gin.Context) {
 
 	c.JSON(http.StatusOK, res)
 }
+
+func (h *Handler) GetUserByEmail(c *gin.Context) {
+	email := c.Param("email")
+	if email == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"Error": "Bad Request"})
+		return
+	}
+
+	res, err := h.Service.GetUserByEmail(c.Request.Context(), email)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"Error handler get user email": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, res)
+}

@@ -12,6 +12,7 @@ func InitRouter(userHandler *user.Handler) {
 	r = gin.Default()
 
 	r.POST("/signup", userHandler.CreateUser)
+	r.GET("/user/:email", userHandler.GetUserByEmail)
 }
 
 func Start(addr string) error {

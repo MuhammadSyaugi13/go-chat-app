@@ -45,3 +45,19 @@ func (s *service) CreateUser(c context.Context, req *CreateUserReq) (*CreateUser
 
 	return res, nil
 }
+
+func (s *service) GetUserByEmail(c context.Context, email string) (*CreateUserRes, error) {
+	ctx, cancel := context.WithTimeout(c, s.timeout)
+	defer cancel()
+
+	r, err := s.Repository.GetUserByEmail(ctx, email)
+	helper.PanicIfError(err, "panic service when get user by email")
+
+	res := &CreateUserRes{
+		Id:       strconv.Itoa(int(r.Id)),
+		Username: r.Username,
+		Email:    r.Email,
+	}
+
+	return res, nil
+}
