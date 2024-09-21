@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"server/db"
 	"server/helper"
 	"server/internal/user"
@@ -21,10 +20,9 @@ func main() {
 
 	hub := ws.NewHub()
 	wsHandler := ws.NewHandler(hub)
+	go hub.Run()
 
 	router.InitRouter(userHandler, wsHandler)
-
-	fmt.Println("hub.Roomssss : ")
 
 	router.Start("localhost:8090")
 

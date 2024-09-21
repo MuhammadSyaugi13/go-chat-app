@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"server/internal/user"
 	"server/internal/ws"
 
@@ -19,9 +18,9 @@ func InitRouter(userHandler *user.Handler, wsHandler *ws.Handler) {
 	r.GET("/user/:email", userHandler.GetUserByEmail)
 
 	r.POST("/ws/create-room", wsHandler.CreateRoom)
-	r.GET("/ws/get-room", wsHandler.GetRoom)
-
-	fmt.Println("jalan init touter boss")
+	r.GET("/ws/get-rooms", wsHandler.GetRooms)
+	r.GET("/ws/get-clients", wsHandler.GetClients)
+	r.GET("/ws/join-room/:roomId", wsHandler.JoinRoom)
 
 }
 
