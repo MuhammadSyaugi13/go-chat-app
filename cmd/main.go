@@ -1,9 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"server/db"
 	"server/helper"
 	"server/internal/user"
+	"server/internal/ws"
 	"server/router"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -17,7 +19,13 @@ func main() {
 	userSvc := user.NewService(userRep)
 	userHandler := user.NewHandler(userSvc)
 
-	router.InitRouter(userHandler)
+	hub := ws.NewHub()
+	wsHandler := ws.NewHandler(hub)
+
+	router.InitRouter(userHandler, wsHandler)
+
+	fmt.Println("hub.Roomssss : ")
+
 	router.Start("localhost:8090")
 
 }
