@@ -15,14 +15,25 @@ type CreateUserReq struct {
 	Password string `json:"password" db:"password"`
 }
 
-type CreateEmailReq struct {
-	Email string `json:"email" db:"email"`
-}
-
 type CreateUserRes struct {
 	Id       string `json:"id" db:"id"`
 	Username string `json:"username" db:"username"`
 	Email    string `json:"email" db:"email"`
+}
+
+type LoginUserReq struct {
+	Email    string `json:"email" db:"email"`
+	Password string `json:"password" db:"password"`
+}
+
+type LoginUserRes struct {
+	accessToken string
+	Id          string `json:"id" db:"id"`
+	Username    string `json:"username" db:"username"`
+}
+
+type CreateEmailReq struct {
+	Email string `json:"email" db:"email"`
 }
 
 type Repository interface {
@@ -33,4 +44,5 @@ type Repository interface {
 type Service interface {
 	CreateUser(c context.Context, req *CreateUserReq) (*CreateUserRes, error)
 	GetUserByEmail(c context.Context, email string) (*CreateUserRes, error)
+	Login(c context.Context, req *LoginUserReq) (*LoginUserRes, error)
 }

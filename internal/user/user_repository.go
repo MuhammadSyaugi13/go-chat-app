@@ -38,9 +38,9 @@ func (r *repository) CreateUser(ctx context.Context, user *User) (*User, error) 
 
 func (r *repository) GetUserByEmail(ctx context.Context, email string) (*User, error) {
 	u := User{}
-	query := "select id, username, email from users where email=?"
+	query := "select id, username, email, password from users where email=?"
 
-	err := r.db.QueryRowContext(ctx, query, email).Scan(&u.Id, &u.Username, &u.Email)
+	err := r.db.QueryRowContext(ctx, query, email).Scan(&u.Id, &u.Username, &u.Email, &u.Password)
 	if err != nil {
 		fmt.Println("error nich : ", err)
 		return &User{}, nil
